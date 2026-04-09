@@ -1,0 +1,34 @@
+# IDE
+.vscode/
+
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Build artifacts
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg-info
+
+# Virtual environments
+.venv/
+weather/.venv/
+
+# Environment files
+.env
+.env.*
+weather/.env
+
+# Streamlit / local app state
+.streamlit/
+
+# OS files
+.DS_Store
+Thumbs.db
