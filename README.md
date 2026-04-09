@@ -1,18 +1,18 @@
+<h1 align="center">Weather Decision Assistant</h1>
 
-# 🌦️ Weather Decision Assistant
+> 基于中国各地天气状况对于人们出游，活动，及生活的multi-agent简易建议助手demo。
 
-> A multi-agent weather decision system for actionable travel and activity recommendations in Chinese cities.
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python" />
+  <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License" />
+  <img src="https://img.shields.io/badge/status-active-success.svg" alt="Status" />
+</p>
 
-[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-green.svg)]()
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-
----
 
 ## 📌 Overview
 
 **Weather Decision Assistant** 是一个面向中国城市的多 Agent 天气决策系统 Demo。
-与传统天气查询不同，本项目聚焦于**“决策”而非“数据”**，通过多 Agent 协作，将天气、空气质量和生活建议整合为**可执行的行动建议**。
+与传统天气查询不同，本项目聚焦于“决策”而非“数据”**，通过多 Agent 协作，将天气、空气质量和生活建议整合为**可执行的行动建议。
 
 ### ✨ Key Features
 
