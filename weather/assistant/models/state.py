@@ -2,6 +2,18 @@
 
 
 @dataclass(frozen=True)
+class MemoryTurn:
+    user_query: str = ""
+    assistant_summary: str = ""
+    decision: str = ""
+    location: str = ""
+    province: str = ""
+    time_range: str = ""
+    activity_type: str = ""
+    question_type: str = ""
+
+
+@dataclass(frozen=True)
 class Intent:
     location: str = ""
     latitude: float | None = None
@@ -49,6 +61,8 @@ class FinalAnswer:
 @dataclass(frozen=True)
 class AssistantState:
     user_query: str
+    session_id: str = "default"
+    memory_window: list[MemoryTurn] = field(default_factory=list)
     intent: Intent = field(default_factory=Intent)
     execution_plan: ExecutionPlan = field(default_factory=ExecutionPlan)
     tool_results: ToolResults = field(default_factory=ToolResults)
@@ -56,5 +70,14 @@ class AssistantState:
     final_answer: FinalAnswer = field(default_factory=FinalAnswer)
 
     @classmethod
-    def create(cls, user_query: str) -> "AssistantState":
-        return cls(user_query=user_query)
+    def create(
+        cls,
+        user_query: str,
+        session_id: str = "default",
+        memory_window: list[MemoryTurn] | None = None,
+    ) -> "AssistantState":
+        return cls(
+            user_query=user_query,
+            session_id=session_id,
+            memory_window=memory_window or [],
+        )

@@ -95,6 +95,16 @@ def _build_rule_tips(state: AssistantState, temperatures: list[int]) -> tuple[st
     return decision, tips
 
 
+def _memory_context(state: AssistantState) -> str:
+    if not state.memory_window:
+        return "无历史上下文。"
+
+    return "\n".join(
+        f"{index}. 用户: {turn.user_query} | 助手总结: {turn.assistant_summary} | 决策: {turn.decision}"
+        for index, turn in enumerate(state.memory_window, start=1)
+    )
+
+
 async def _llm_recommend(
     state: AssistantState, risk_level: str, rule_tips: list[str]
 ) -> dict[str, object]:
@@ -104,6 +114,7 @@ async def _llm_recommend(
 
     prompt = (
         "你是一个中国天气出行助手。请基于以下信息生成中文建议。"
+        f"最近对话窗口:\n{_memory_context(state)}\n"
         f"用户问题: {state.user_query}\n"
         f"地点: {state.intent.location or state.intent.province}\n"
         f"时间: {state.intent.time_range or '未指定'}\n"

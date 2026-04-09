@@ -157,56 +157,56 @@ async def get_forecast(latitude: float, longitude: float) -> str:
     return "\n".join(lines).strip()
 
 
-# @mcp.tool()
-# async def get_alerts(location: str) -> str:
-#     """获取中国城市的天气预警信息。"""
-#     if not QWEATHER_API_HOST or not QWEATHER_API_TOKEN:
-#         return (
-#             f"{location} 暂未配置中国天气预警源。"
-#             "请在环境变量中设置 QWEATHER_API_HOST 和 QWEATHER_API_TOKEN。"
-#         )
+@mcp.tool()
+async def get_alerts(location: str) -> str:
+    """获取中国城市的天气预警信息。"""
+    if not QWEATHER_API_HOST or not QWEATHER_API_TOKEN:
+        return (
+            f"{location} 暂未配置中国天气预警源。"
+            "请在环境变量中设置 QWEATHER_API_HOST 和 QWEATHER_API_TOKEN。"
+        )
 
-#     resolved = await resolve_location_data(location)
-#     if not resolved:
-#         return f"未找到 {location} 的坐标信息，无法查询天气预警。"
+    resolved = await resolve_location_data(location)
+    if not resolved:
+        return f"未找到 {location} 的坐标信息，无法查询天气预警。"
 
-#     latitude = resolved.get("latitude")
-#     longitude = resolved.get("longitude")
-#     if latitude is None or longitude is None:
-#         return f"{location} 的坐标信息不完整，无法查询天气预警。"
+    latitude = resolved.get("latitude")
+    longitude = resolved.get("longitude")
+    if latitude is None or longitude is None:
+        return f"{location} 的坐标信息不完整，无法查询天气预警。"
 
-#     data = await make_request_with_headers(
-#         f"{QWEATHER_API_HOST}/v7/warning/now",
-#         {
-#             "location": f"{longitude},{latitude}",
-#             "lang": "zh",
-#         },
-#         {
-#             "Authorization": f"Bearer {QWEATHER_API_TOKEN}",
-#         },
-#     )
-#     if not data:
-#         return f"无法获取 {location} 的天气预警信息。"
+    data = await make_request_with_headers(
+        f"{QWEATHER_API_HOST}/v7/warning/now",
+        {
+            "location": f"{longitude},{latitude}",
+            "lang": "zh",
+        },
+        {
+            "Authorization": f"Bearer {QWEATHER_API_TOKEN}",
+        },
+    )
+    if not data:
+        return f"无法获取 {location} 的天气预警信息。"
 
-#     warnings = data.get("warning") or []
-#     if not warnings:
-#         return f"{location} 当前没有生效中的天气预警。"
+    warnings = data.get("warning") or []
+    if not warnings:
+        return f"{location} 当前没有生效中的天气预警。"
 
-#     lines = [f"{location} 当前天气预警:"]
-#     for item in warnings:
-#         lines.extend(
-#             [
-#                 f"标题: {item.get('title', '未知')}",
-#                 f"级别: {item.get('severity', '未知')}",
-#                 f"类型: {item.get('typeName', '未知')}",
-#                 f"发布时间: {item.get('pubTime', '未知')}",
-#                 f"发布单位: {item.get('sender', '未知')}",
-#                 f"状态: {item.get('status', '未知')}",
-#                 f"内容: {item.get('text', '无详细内容')}",
-#                 "---",
-#             ]
-#         )
-#     return "\n".join(lines[:-1])
+    lines = [f"{location} 当前天气预警:"]
+    for item in warnings:
+        lines.extend(
+            [
+                f"标题: {item.get('title', '未知')}",
+                f"级别: {item.get('severity', '未知')}",
+                f"类型: {item.get('typeName', '未知')}",
+                f"发布时间: {item.get('pubTime', '未知')}",
+                f"发布单位: {item.get('sender', '未知')}",
+                f"状态: {item.get('status', '未知')}",
+                f"内容: {item.get('text', '无详细内容')}",
+                "---",
+            ]
+        )
+    return "\n".join(lines[:-1])
 
 
 @mcp.tool()
