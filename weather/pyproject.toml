@@ -1,0 +1,18 @@
+﻿[project]
+
+name = "weather-mcp-server"
+version = "0.1.0"
+
+
+dependencies = [
+    "fastmcp",
+    "httpx",
+    "langgraph"
+]
+
+
+[project.scripts]
+
+weather-mcp-serve = "weather:main"
+weather-demo = "assistant.demo:main"
+weather-verify = "assistant.verification.smoke:main"
